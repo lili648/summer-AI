@@ -8,8 +8,8 @@ if not cap.isOpened():
     exit()
 
 # 可选：设置分辨率
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 2560)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1440)
 
 while True:
     ret, frame = cap.read()  # 读取一帧
