@@ -62,10 +62,13 @@ def insert_user(user: dict):
     """插入一条用户记录"""
     conn = get_conn()
     cursor = conn.cursor()
-    cursor.execute(f"""
+    cursor.execute(
+        f"""
         INSERT INTO `{TABLE_NAME}` (username, password_hash, real_name, email, phone, gender, age_group, occupation, interests, register_time)
         VALUES (%(username)s, %(password_hash)s, %(real_name)s, %(email)s, %(phone)s, %(gender)s, %(age_group)s, %(occupation)s, %(interests)s, %(register_time)s)
-    """, user)
+    """,
+        user,
+    )
     conn.commit()
     conn.close()
 
@@ -79,7 +82,9 @@ st.subheader("👤 基本信息")
 
 col1, col2 = st.columns(2)
 with col1:
-    username = st.text_input("用户名 *", placeholder="4-20位字母或数字", key="reg_username")
+    username = st.text_input(
+        "用户名 *", placeholder="4-20位字母或数字", key="reg_username"
+    )
 with col2:
     real_name = st.text_input("真实姓名", placeholder="请输入真实姓名")
 
@@ -96,9 +101,16 @@ if username:
 
 col3, col4 = st.columns(2)
 with col3:
-    password = st.text_input("密码 *", type="password", placeholder="至少6位，含字母和数字", key="reg_password")
+    password = st.text_input(
+        "密码 *",
+        type="password",
+        placeholder="至少6位，含字母和数字",
+        key="reg_password",
+    )
 with col4:
-    confirm_password = st.text_input("确认密码 *", type="password", placeholder="请再次输入密码", key="reg_confirm")
+    confirm_password = st.text_input(
+        "确认密码 *", type="password", placeholder="请再次输入密码", key="reg_confirm"
+    )
 
 # ---- 密码实时校验 ----
 if password:
@@ -127,13 +139,30 @@ col7, col8 = st.columns(2)
 with col7:
     gender = st.radio("性别", ["男", "女", "保密"], horizontal=True, key="reg_gender")
 with col8:
-    age_group = st.selectbox("年龄段", ["请选择", "18岁以下", "18-25岁", "26-35岁", "36-45岁", "46岁以上"], key="reg_age")
+    age_group = st.selectbox(
+        "年龄段",
+        ["请选择", "18岁以下", "18-25岁", "26-35岁", "36-45岁", "46岁以上"],
+        key="reg_age",
+    )
 
-occupation = st.selectbox("职业", ["请选择", "学生", "工程师", "教师", "医生", "设计师", "销售", "其他"], key="reg_occ")
+occupation = st.selectbox(
+    "职业",
+    ["请选择", "学生", "工程师", "教师", "医生", "设计师", "销售", "其他"],
+    key="reg_occ",
+)
 
 interests = st.multiselect(
     "兴趣爱好（可多选）",
-    ["编程 💻", "阅读 📚", "运动 ⚽", "音乐 🎵", "旅行 ✈️", "摄影 📷", "游戏 🎮", "美食 🍔"],
+    [
+        "编程 💻",
+        "阅读 📚",
+        "运动 ⚽",
+        "音乐 🎵",
+        "旅行 ✈️",
+        "摄影 📷",
+        "游戏 🎮",
+        "美食 🍔",
+    ],
     key="reg_interests",
 )
 
@@ -237,3 +266,4 @@ except Exception as e:
 # ====== 页脚 ======
 st.divider()
 st.caption(f"© 2026 用户注册系统 | {datetime.now().strftime('%Y-%m-%d %H:%M')}")
+
